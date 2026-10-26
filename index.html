@@ -62,14 +62,14 @@
         </select>
       </div>
 
-      <!-- Action Button -->
-      <button id="diagnoseBtn" type="button" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 px-4 rounded-lg transition duration-200 shadow-lg shadow-blue-600/30 text-sm uppercase tracking-wide mt-2 cursor-pointer">
+      <!-- Action Button with direct inline onclick -->
+      <button onclick="runDiagnostic()" type="button" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 px-4 rounded-lg transition duration-200 shadow-lg shadow-blue-600/30 text-sm uppercase tracking-wide mt-2 cursor-pointer">
         GENERATE WI-FI HEALTH REPORT
       </button>
     </div>
 
-    <!-- Results Section -->
-    <div id="results" class="hidden mt-8 pt-6 border-t border-slate-700">
+    <!-- Results Section (Inline style display:none instead of tailwind hidden) -->
+    <div id="results" style="display: none;" class="mt-8 pt-6 border-t border-slate-700">
       
       <!-- Free Score Badge -->
       <div class="bg-slate-900 p-5 rounded-xl border border-slate-700 flex items-center justify-between">
@@ -99,7 +99,7 @@
             Admin IP (192.168.1.1) settings, best channel numbers (1, 6, 11), 5GHz frequency selection, aur printable PDF report.
           </p>
 
-          <a href="https://rzp.io/l/YOUR_RAZORPAY_LINK" target="_blank" id="unlockBtn" class="inline-block bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-6 py-3 rounded-lg text-sm shadow-lg shadow-amber-500/20 transition duration-200">
+          <a href="https://rzp.io/l/YOUR_RAZORPAY_LINK" target="_blank" onclick="unlockPro()" class="inline-block bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-6 py-3 rounded-lg text-sm shadow-lg shadow-amber-500/20 transition duration-200">
             Pay ₹49 to Unlock Pro Report (Instant UPI)
           </a>
           
@@ -108,7 +108,7 @@
       </div>
 
       <!-- Unlocked Pro Section -->
-      <div id="unlockedSection" class="hidden mt-6 space-y-6">
+      <div id="unlockedSection" style="display: none;" class="mt-6 space-y-6">
         <div class="bg-blue-950/40 border border-blue-500/40 rounded-xl p-5">
           <div class="flex items-center space-x-2 mb-3">
             <span class="text-emerald-400 text-base font-bold">✓</span>
@@ -132,34 +132,16 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const btn = document.getElementById('diagnoseBtn');
-      if (btn) {
-        btn.addEventListener('click', runDiagnostic);
-      }
-
-      const unlock = document.getElementById('unlockBtn');
-      if (unlock) {
-        unlock.addEventListener('click', function() {
-          setTimeout(function() {
-            document.getElementById('lockedProSection').classList.add('hidden');
-            document.getElementById('unlockedSection').classList.remove('hidden');
-            document.getElementById('unlockedSection').scrollIntoView({ behavior: 'smooth' });
-          }, 1000);
-        });
-      }
-    });
-
     function runDiagnostic() {
-      const size = document.getElementById('size').value;
-      const location = document.getElementById('location').value;
-      const walls = document.getElementById('walls').value;
-      const band = document.getElementById('band').value;
+      var size = document.getElementById('size').value;
+      var location = document.getElementById('location').value;
+      var walls = document.getElementById('walls').value;
+      var band = document.getElementById('band').value;
 
-      let score = 95;
-      let diagnosis = [];
-      let proFixes = [];
-      let hardware = "";
+      var score = 95;
+      var diagnosis = [];
+      var proFixes = [];
+      var hardware = "";
 
       if (location === 'hidden') {
         score -= 30;
@@ -205,11 +187,12 @@
         hardware = "Aapke setup ke liye hardware change karne ki zaroorat nahi hai. Baseline settings optimise karne se hi 30-50% speed jump mil jayega.";
       }
 
-      const resultsDiv = document.getElementById('results');
-      const scoreElem = document.getElementById('scoreValue');
-      const gradeElem = document.getElementById('gradeBadge');
+      var resultsDiv = document.getElementById('results');
+      var scoreElem = document.getElementById('scoreValue');
+      var gradeElem = document.getElementById('gradeBadge');
       
-      resultsDiv.classList.remove('hidden');
+      // Force display block directly
+      resultsDiv.style.display = 'block';
       scoreElem.innerText = score + " / 100";
 
       if (score >= 75) {
@@ -227,10 +210,20 @@
       }
 
       document.getElementById('freeDiagnosis').innerText = diagnosis.join(' ') || "Setup me minor adjustments required hain.";
-      document.getElementById('proRecommendations').innerHTML = proFixes.map(fix => <p class="leading-relaxed border-l-2 border-blue-500 pl-3">${fix}</p>).join('');
+      document.getElementById('proRecommendations').innerHTML = proFixes.map(function(fix) {
+        return '<p class="leading-relaxed border-l-2 border-blue-500 pl-3">' + fix + '</p>';
+      }).join('');
       document.getElementById('hardwareAdvice').innerText = hardware;
 
       resultsDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function unlockPro() {
+      setTimeout(function() {
+        document.getElementById('lockedProSection').style.display = 'none';
+        document.getElementById('unlockedSection').style.display = 'block';
+        document.getElementById('unlockedSection').scrollIntoView({ behavior: 'smooth' });
+      }, 800);
     }
   </script>
 </body>
