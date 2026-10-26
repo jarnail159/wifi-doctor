@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wi-Fi Doctor Pro - Router Diagnostic & Fixer</title>
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @media print {
@@ -18,17 +17,17 @@
 
   <div class="max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-6 sm:p-8 shadow-2xl" id="mainContainer">
     
-    <!-- Header (No Print) -->
+    <!-- Header -->
     <div class="text-center mb-8 no-print">
       <span class="inline-block bg-blue-600/20 text-blue-400 text-xs px-3 py-1 rounded-full uppercase tracking-wider font-semibold mb-2">Automated Wi-Fi Auditor</span>
       <h1 class="text-3xl font-extrabold text-white tracking-tight">Wi-Fi Router Speed & Range Doctor</h1>
       <p class="text-slate-400 mt-2 text-sm">Ghar ya office ka Wi-Fi dead-zone aur drop issues 2 minute me diagnose karein.</p>
     </div>
 
-    <!-- Questionnaire Form (No Print) -->
-    <form id="wifiForm" class="space-y-4 no-print">
+    <!-- Questionnaire Form -->
+    <div class="space-y-4 no-print">
       <div>
-        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Ghar / Office Area</label>
+        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">GHAR / OFFICE AREA</label>
         <select id="size" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-slate-200 text-sm focus:outline-none focus:border-blue-500">
           <option value="small">Small Flat / Single Room (Up to 800 sq ft)</option>
           <option value="medium" selected>Medium House / 2-3 BHK (800 - 1800 sq ft)</option>
@@ -37,7 +36,7 @@
       </div>
 
       <div>
-        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Router Kahan Rakha Hai?</label>
+        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">ROUTER KAHAN RAKHA HAI?</label>
         <select id="location" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-slate-200 text-sm focus:outline-none focus:border-blue-500">
           <option value="center">Central Open Area (Table/Shelf)</option>
           <option value="corner" selected>Corner Room / Deewar ke paas</option>
@@ -46,7 +45,7 @@
       </div>
 
       <div>
-        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Deewarein (Wall Construction)</label>
+        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">DEEWAREIN (WALL CONSTRUCTION)</label>
         <select id="walls" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-slate-200 text-sm focus:outline-none focus:border-blue-500">
           <option value="thin">Wood / Glass / Gypsum partition</option>
           <option value="standard" selected>Standard Brick Walls (Eent ki deewar)</option>
@@ -55,7 +54,7 @@
       </div>
 
       <div>
-        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">Current Frequency Band</label>
+        <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1">CURRENT FREQUENCY BAND</label>
         <select id="band" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-slate-200 text-sm focus:outline-none focus:border-blue-500">
           <option value="single">Single Band (2.4 GHz only / 1 Wi-Fi name)</option>
           <option value="both" selected>Dual Band (2.4 GHz + 5 GHz dikhte hain)</option>
@@ -63,10 +62,11 @@
         </select>
       </div>
 
-      <button type="button" onclick="runDiagnostic()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 px-4 rounded-lg transition duration-200 shadow-lg shadow-blue-600/30 text-sm uppercase tracking-wide mt-2">
-        Generate Wi-Fi Health Report
+      <!-- Action Button -->
+      <button id="diagnoseBtn" type="button" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 px-4 rounded-lg transition duration-200 shadow-lg shadow-blue-600/30 text-sm uppercase tracking-wide mt-2 cursor-pointer">
+        GENERATE WI-FI HEALTH REPORT
       </button>
-    </form>
+    </div>
 
     <!-- Results Section -->
     <div id="results" class="hidden mt-8 pt-6 border-t border-slate-700">
@@ -90,16 +90,6 @@
 
       <!-- Paywall / Locked Section -->
       <div id="lockedProSection" class="mt-6 relative rounded-2xl overflow-hidden border border-amber-500/30 p-6 bg-slate-900/90 no-print">
-        
-        <!-- Blurred Background Preview -->
-        <div class="filter blur-sm select-none opacity-40 pointer-events-none space-y-3">
-          <div class="h-4 bg-slate-600 rounded w-3/4"></div>
-          <div class="h-4 bg-slate-600 rounded w-5/6"></div>
-          <div class="h-4 bg-slate-600 rounded w-2/3"></div>
-          <div class="h-4 bg-slate-600 rounded w-4/5"></div>
-        </div>
-
-        <!-- Lock Overlay Content -->
         <div class="text-center py-4">
           <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/10 text-amber-400 mb-3 text-xl">
             🔒
@@ -109,8 +99,7 @@
             Admin IP (192.168.1.1) settings, best channel numbers (1, 6, 11), 5GHz frequency selection, aur printable PDF report.
           </p>
 
-          <!-- ₹49 Payment Button (Direct UPI / Razorpay / Cosmofeed Link) -->
-          <a href="https://rzp.io/l/YOUR_RAZORPAY_LINK" target="_blank" onclick="simulateUnlockAfterPayment()" class="inline-block bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-6 py-3 rounded-lg text-sm shadow-lg shadow-amber-500/20 transition duration-200">
+          <a href="https://rzp.io/l/YOUR_RAZORPAY_LINK" target="_blank" id="unlockBtn" class="inline-block bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-6 py-3 rounded-lg text-sm shadow-lg shadow-amber-500/20 transition duration-200">
             Pay ₹49 to Unlock Pro Report (Instant UPI)
           </a>
           
@@ -118,24 +107,21 @@
         </div>
       </div>
 
-      <!-- Unlocked Pro Section (Hidden Initially) -->
+      <!-- Unlocked Pro Section -->
       <div id="unlockedSection" class="hidden mt-6 space-y-6">
-        
         <div class="bg-blue-950/40 border border-blue-500/40 rounded-xl p-5">
           <div class="flex items-center space-x-2 mb-3">
-            <span class="text-emerald-400 text-base">✓</span>
+            <span class="text-emerald-400 text-base font-bold">✓</span>
             <h4 class="text-white font-bold text-base">Pro Configuration Blueprint</h4>
           </div>
           <div class="space-y-4 text-sm text-slate-300" id="proRecommendations"></div>
         </div>
 
-        <!-- Hardware & Topology Recommendation -->
         <div class="bg-slate-900 border border-slate-700 rounded-xl p-5">
           <h4 class="text-white font-bold text-sm mb-2">Recommended Setup Architecture</h4>
           <p id="hardwareAdvice" class="text-xs text-slate-400 leading-relaxed"></p>
         </div>
 
-        <!-- Print / PDF Button -->
         <button onclick="window.print()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-4 rounded-lg text-sm transition no-print shadow-lg shadow-emerald-600/20">
           Save / Print PDF Report
         </button>
@@ -146,6 +132,24 @@
   </div>
 
   <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const btn = document.getElementById('diagnoseBtn');
+      if (btn) {
+        btn.addEventListener('click', runDiagnostic);
+      }
+
+      const unlock = document.getElementById('unlockBtn');
+      if (unlock) {
+        unlock.addEventListener('click', function() {
+          setTimeout(function() {
+            document.getElementById('lockedProSection').classList.add('hidden');
+            document.getElementById('unlockedSection').classList.remove('hidden');
+            document.getElementById('unlockedSection').scrollIntoView({ behavior: 'smooth' });
+          }, 1000);
+        });
+      }
+    });
+
     function runDiagnostic() {
       const size = document.getElementById('size').value;
       const location = document.getElementById('location').value;
@@ -157,7 +161,6 @@
       let proFixes = [];
       let hardware = "";
 
-      // Logic for score & free insights
       if (location === 'hidden') {
         score -= 30;
         diagnosis.push("Router band almirah ya TV ke peeche hone ki wajah se 30-40% signal absorb ho raha hai.");
@@ -176,39 +179,39 @@
         diagnosis.push("Single-band frequency congestion hone se video calls aur gaming me high ping / lag aata hai.");
       }
 
-      // Pro Recommendations (Paid Content)
-      proFixes.push(`
-        <strong>1. Admin Panel Login:</strong> Browser me <code>192.168.1.1</code> ya <code>192.168.0.1</code> enter karein. Default username <code>admin</code> aur password router ke base sticker par mil jayega.
-      `);
+      proFixes.push(
+        "<strong>1. Admin Panel Login:</strong> Browser me <code>192.168.1.1</code> ya <code>192.168.0.1</code> enter karein. Default username <code>admin</code> aur password router ke base sticker par mil jayega."
+      );
 
       if (band === 'both') {
-        proFixes.push(`
-          <strong>2. SSID Separation:</strong> Router me Smart Connect/Band Steering band karein. 2.4GHz network ka naam <code>Home_Wi-Fi_2.4G</code> aur 5GHz ka naam <code>Home_Wi-Fi_5G</code> alag-alag rakhein. High-speed devices ko 5GHz se connect karein.
-        `);
+        proFixes.push(
+          "<strong>2. SSID Separation:</strong> Router me Smart Connect/Band Steering band karein. 2.4GHz network ka naam <code>Home_Wi-Fi_2.4G</code> aur 5GHz ka naam <code>Home_Wi-Fi_5G</code> alag-alag rakhein. High-speed devices ko 5GHz se connect karein."
+        );
       } else {
-        proFixes.push(`
-          <strong>2. Channel Congestion Fix:</strong> Wireless settings me Channel 'Auto' se hatakar <strong>Channel 1, 6, ya 11</strong> par lock karein (20MHz channel width par). Yeh interference turant khatam karega.
-        `);
+        proFixes.push(
+          "<strong>2. Channel Congestion Fix:</strong> Wireless settings me Channel 'Auto' se hatakar <strong>Channel 1, 6, ya 11</strong> par lock karein (20MHz channel width par). Yeh interference turant khatam karega."
+        );
       }
 
       if (walls === 'thick' || size === 'large') {
-        proFixes.push(`
-          <strong>3. 5GHz Channel Width:</strong> 5GHz settings me jaakar channel <strong>36, 40, ya 44</strong> select karein aur channel width <strong>80MHz</strong> rakhein taaki maximum download speed deliver ho sake.
-        `);
-        hardware = "Is property layout ke liye single router kaafi nahi hai. Ek Gigabit Dual-Band Mesh node (jaise TP-Link Deco M4) ya Cat6 LAN cable wired backhaul connect karein.";
+        proFixes.push(
+          "<strong>3. 5GHz Channel Width:</strong> 5GHz settings me jaakar channel <strong>36, 40, ya 44</strong> select karein aur channel width <strong>80MHz</strong> rakhein taaki maximum download speed deliver ho sake."
+        );
+        hardware = "Is property layout ke liye single router kaafi nahi hai. Ek Gigabit Dual-Band Mesh node (jaise TP-Link Deco) ya Cat6 LAN cable wired backhaul connect karein.";
       } else {
-        proFixes.push(`
-          <strong>3. Height & Orientation:</strong> Router ko zameen se 4 se 5 feet ki unchai par rakhein. Antennas ko 90-degree aur 45-degree angle par set karein taaki signals horizontal aur vertical dono spread hon.
-        `);
+        proFixes.push(
+          "<strong>3. Height & Orientation:</strong> Router ko zameen se 4 se 5 feet ki unchai par rakhein. Antennas ko 90-degree aur 45-degree angle par set karein taaki signals horizontal aur vertical dono spread hon."
+        );
         hardware = "Aapke setup ke liye hardware change karne ki zaroorat nahi hai. Baseline settings optimise karne se hi 30-50% speed jump mil jayega.";
       }
 
-      // Render Free Summary
-      document.getElementById('results').classList.remove('hidden');
+      const resultsDiv = document.getElementById('results');
       const scoreElem = document.getElementById('scoreValue');
       const gradeElem = document.getElementById('gradeBadge');
       
+      resultsDiv.classList.remove('hidden');
       scoreElem.innerText = score + " / 100";
+
       if (score >= 75) {
         scoreElem.className = "text-3xl font-black mt-1 text-emerald-400";
         gradeElem.className = "px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300";
@@ -224,22 +227,10 @@
       }
 
       document.getElementById('freeDiagnosis').innerText = diagnosis.join(' ') || "Setup me minor adjustments required hain.";
-
-      // Populate Pro Section
       document.getElementById('proRecommendations').innerHTML = proFixes.map(fix => <p class="leading-relaxed border-l-2 border-blue-500 pl-3">${fix}</p>).join('');
       document.getElementById('hardwareAdvice').innerText = hardware;
 
-      document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // Demo/Auto unlock function
-    function simulateUnlockAfterPayment() {
-      // Jab payment gateway redirect karega (ya testing ke liye), yeh pro section open kar dega:
-      setTimeout(() => {
-        document.getElementById('lockedProSection').classList.add('hidden');
-        document.getElementById('unlockedSection').classList.remove('hidden');
-        document.getElementById('unlockedSection').scrollIntoView({ behavior: 'smooth' });
-      }, 1000);
+      resultsDiv.scrollIntoView({ behavior: 'smooth' });
     }
   </script>
 </body>
